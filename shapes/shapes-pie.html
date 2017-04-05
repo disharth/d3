@@ -11,7 +11,7 @@
 <div id='donut'></div>
  <script type="text/javascript">
 
- var data = [{color: 'red' , size: 10},{color: 'green' , size: 20},{color: 'blue' , size: 30},{color: 'purple' , size: 40}]
+ var data = [{color: 'red' , size: 10},{color: 'green' , size: 40},{color: 'blue' , size: 30},{color: 'purple' , size: 40}]
 
 
  var svg = d3.select('#donut').append('svg')
@@ -20,21 +20,22 @@
               .append('g')
               .attr('transform' , 'translate('+250+','+250+')');
 
-// 
+// Gernerate the data that is consumable by the arc data. 
+//This does all the complex logic of calculating start angle/end anngle etc.
 var pie = d3.pie()
             .sort(null)
             .value(function(d){
               return d.size;
             })(data);
 
-//
+// Helper method to get the path data for an arc based on the setting done below.
 var arc = d3.arc()
             .innerRadius(30)
             .outerRadius(100)
             .cornerRadius(4)
             .padAngle(0.02);
 
-//
+// Creating path of arc path data, arcs path's d param are calculated for each data provided by pie.
 var path = svg.selectAll('path')
               .data(pie)
               .enter()
@@ -43,7 +44,21 @@ var path = svg.selectAll('path')
               .attr('fill' , function(d){
                 return d.data.color;
               });
- 
+
+//Using centroid to find the center point in arcs an place a label on it.
+          svg.selectAll('text')
+              .data(pie)
+              .enter()
+              .append('text')
+              .each(function(d) {
+                var centroid = arc.centroid(d);
+                d3.select(this)
+                  .attr('x', centroid[0])
+                  .attr('y', centroid[1])
+                  .attr('dy', '0.33em')
+                  .text(d.data.size);
+              });
+             
    
  </script>
 </body>
