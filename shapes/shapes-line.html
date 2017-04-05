@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Shapes Line</title>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  
+</head>
+<body>
+	<script type="text/javascript">
+	var lineData = [ { "x": 1,   "y": 100},  { "x": 20,  "y": 80},
+                  { "x": 40,  "y": 60}, { "x": 60,  "y": 40},
+                  { "x": 80,  "y": 20},  { "x": 100, "y": 5}];
+
+//The SVG Container
+var svgContainer = d3.select("body").append("svg")
+                                    .attr("width", 200)
+                                    .attr("height", 200);
+
+// This will generate the path data for creating line based on associated data.
+var pathDataForLine = d3.line()
+						            .curve(d3.curveBasis)
+                        .x(function(d) { return d.x; })
+                        .y(function(d) { return d.y; });
+
+//Draw path using line data.
+var lineGraph = svgContainer.append("path")
+                            .attr("d", pathDataForLine(lineData))
+                            .attr("stroke-width", 3)
+                            .attr("stroke", "steelblue")
+      						          .attr("stroke-linejoin", "round")
+      						          .attr("stroke-linecap", "round")
+                            .attr("fill", "none");
+//Creating circles on each points to make it beautifull.
+				svgContainer.selectAll("circle")
+				  			.data(lineData.filter(function(d) { return d; }))
+				  			.enter().append("circle")
+				    		.attr("cx", pathDataForLine.x())
+				    		.attr("cy", pathDataForLine.y())
+				    		.attr("stroke-width", 1)
+                .attr("stroke", "steelblue")
+                .attr("fill", "white")
+				    		.attr("r", 3);
+	</script>
+
+</body>
+</html>
