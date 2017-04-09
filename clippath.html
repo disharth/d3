@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+	<title>Text on simple Arc</title>
+
+	<!-- D3.js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+	<!-- Google Font -->
+	<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+	
+	<style>
+		body {
+			font-family: 'Pacifico', sans-serif;
+			fill: #333333;
+			font-size: 30px;
+			text-align: center;
+		}
+	</style>
+  </head>
+  
+  <body>
+
+    <script>
+		//Create the SVG
+		var svg = d3.select("body").append("svg")
+					.attr("width", 400)
+					.attr("height", 400);
+					
+		// define the clipPath
+svg.append("clipPath")       // define a clip path
+	.attr("id", "ellipse-clip") // give the clipPath an ID
+  .append("ellipse")            // shape it as an ellipse
+	.attr("cx", 175)            // position the x-centre
+	.attr("cy", 100)            // position the y-centre
+	.attr("rx", 100)            // set the x radius
+	.attr("ry", 30);            // set the y radius
+
+// draw clipped path on the screen
+svg.append("circle")       // attach a rectangle
+    .attr("cx", 125)         // position the left of the rectangle
+    .attr("cy", 75)          // position the top of the rectangle
+    .attr("clip-path", "url(#ellipse-clip)") // clip the rectangle
+    .style("fill", "lightgrey")   // fill the clipped path with grey
+    .attr('r',100);    // set the width
+
+
+	
+	</script>
+	
+  </body>
+</html>

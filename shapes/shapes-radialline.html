@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Shapes Line</title>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  
+</head>
+<style>
+path {
+  fill: none;
+  stroke: #999;
+}
+</style>
+<body>
+	<script type="text/javascript">
+
+  //The SVG Container
+var svgContainer = d3.select("body").append("svg")
+                                    .attr("width", 700)
+                                    .attr("height", 200)
+                                    .append('g')
+                                    .attr('transform','translate(100,100)');
+
+
+	var radialLineGenerator = d3.radialLine();
+  radialLineGenerator
+  .angle(function(d) {
+    return d.a;
+  })
+  .radius(function(d) {
+    return d.r;
+  })
+  .defined(function(d) { // This defines to ignore the null data.
+                          return d !== null;
+                        });
+
+var points = [
+  {a: 0, r: 80},
+{a: Math.PI*0.25, r: 80},
+{a: Math.PI*0.50, r: 80},
+{a: Math.PI*0.75, r: 80},
+{a: Math.PI, r: 80},
+{a: Math.PI*1.25, r: 80},
+{a: Math.PI*1.50, r: 80},
+{a: Math.PI*1.75, r: 80},
+{a: Math.PI*2, r: 80},null,
+
+{a: 0, r: 70},
+{a: Math.PI*0.25, r: 30},
+{a: Math.PI*0.50, r: 70},
+{a: Math.PI*0.75, r: 30},
+{a: Math.PI, r: 70},
+{a: Math.PI*1.25, r: 30},
+{a: Math.PI*1.50, r: 70},
+{a: Math.PI*1.75, r: 30},
+{a: Math.PI*2, r: 70}
+
+
+];
+
+
+var radialLine = radialLineGenerator(points);
+
+
+
+svgContainer
+  .append('path')
+  .attr('d', radialLine)
+  .attr('fill','red')
+  .attr('stroke','blue');
+	</script>
+
+</body>
+</html>

@@ -10,7 +10,7 @@
 <body>
 	<script type="text/javascript">
 	var lineData = [ { "x": 1,   "y": 100},  { "x": 20,  "y": 80},
-                  { "x": 40,  "y": 60}, { "x": 60,  "y": 40},
+                  { "x": 40,  "y": 60}, { "x": 60,  "y": 40},null,
                   { "x": 80,  "y": 20},  { "x": 100, "y": 5}];
 
 //The SVG Container
@@ -22,7 +22,10 @@ var svgContainer = d3.select("body").append("svg")
 var pathDataForLine = d3.line()
 						            .curve(d3.curveBasis)
                         .x(function(d) { return d.x; })
-                        .y(function(d) { return d.y; });
+                        .y(function(d) { return d.y; })
+                        .defined(function(d) { // This defines to ignore the null data.
+                          return d !== null;
+                        });
 
 //Draw path using line data.
 var lineGraph = svgContainer.append("path")

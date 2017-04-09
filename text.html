@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+	<title>Text on simple Arc</title>
+
+	<!-- D3.js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+	<!-- Google Font -->
+	<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+	
+	<style>
+		body {
+			font-family: 'Pacifico', sans-serif;
+			fill: #333333;
+			font-size: 30px;
+			text-align: center;
+		}
+	</style>
+  </head>
+  
+  <body>
+
+    <script>
+		//Create the SVG
+		var svg = d3.select("body").append("svg")
+					.attr("width", 400)
+					.attr("height", 400);
+					
+		//Create an SVG arc starting at location [0,300], ending at [400,300] with a radius of 200 (circle)			
+		var path = svg.append("path")
+			.attr("id", "wavy") //A unique ID to reference later
+			.attr("d", "M0,300 A200,200 0 0,1 400,300") //Notation for an SVG path
+			.style("fill", "none")
+			.style("stroke", "#AAAAAA")
+			.style("stroke-dasharray", "5,5");
+
+		//Create an SVG text element and append a textPath element
+		var textArc = svg.append("text")
+			.style("text-anchor","middle")
+		  .append("textPath")				//append a textPath to the text element
+			.attr("xlink:href", "#wavy") 	//place the ID of the path here
+			.attr("startOffset", "50%")		//place the text halfway on the arc
+			.text("Pramod Shukla");
+
+			svg.append("text")
+			  .style("fill", "black")
+			  .style("font-size", "30px")
+			  .attr("dy", ".35em")
+			  .attr("text-anchor", "middle")
+			  .attr("transform", "translate(200,200) rotate(90)")
+			  .text("Shukla Family");
+		
+		//Transition to an arc starting at location [75,300], ending at [325,300] with a radius of 125 (circle)
+		//svg.selectAll("path")
+		//	.transition().duration(2000).delay(2000)
+		//	.attr("d", "M75,300 A125,125 0 0,1 325,300");
+
+
+	
+	</script>
+	
+  </body>
+</html>
